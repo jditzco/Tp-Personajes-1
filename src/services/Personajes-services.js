@@ -7,7 +7,7 @@ class PersonajesService {
         console.log('Estoy en: PersonajesService.getAll()');
         try {
             let pool = await sql.connect(config);
-            let result = await pool.request().query("SELECT id, nombre, imagen from Personaje");
+            let result = await pool.request().query("SELECT IdPersonaje, nombre, imagen from Personaje");
             returnArray = result.recordsets[0];
         }
         catch (error) {
@@ -55,7 +55,7 @@ class PersonajesService {
             let pool = await sql.connect(config);
             let result = await pool.request()
             .input('pId', sql.Int, id)
-            .query('SELECT * FROM Personaje WHERE id = @pId');
+            .query('SELECT * FROM Personaje WHERE IdPersonaje = @pId');
             returnEntity = result.recordsets[0][0];
         } catch (error) {
             console.log(error);
@@ -92,7 +92,7 @@ class PersonajesService {
                 Peso = ${personaje.Peso},
                 Historia = '${personaje.Historia}',
                 peliserie = '${personaje.Asociadas}'
-                WHERE IDd = ${personaje.id}`);
+                WHERE IdPersonaje = ${personaje.id}`);
             rowsAffected = result.rowsAffected;
         } catch (error) {
             console.log(error);
